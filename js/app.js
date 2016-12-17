@@ -52,19 +52,27 @@ function speciesReqListener(){
 
 function filmsReqListener(){
   let films = JSON.parse(this.responseText);
+  let filmList = document.getElementById('filmList');
 
   for (var i = 0; i < films.results.length; i++){
-    let node = document.createElement('LI');
-    let filmResults = document.createTextNode(films.results[i].title)
-    node.appendChild(filmResults);
-    document.getElementById('filmList').appendChild(node);
+    let filmListItem = document.createElement('li');
+    let filmTitleHeader = document.createElement('h2');
+    filmTitleHeader.innerHTML = films.results[i].title;
+    filmListItem.appendChild(filmTitleHeader);
+    filmList.appendChild(filmListItem);
 
+    //for every film
+    //get all planets that were listed in this film
+    //  (new XHR request, for each film, and for each planet)
+    //  then render each planet in yet another nested <ul> list
   }
 
   let planetsReq = new XMLHttpRequest;
 
   planetsReq.addEventListener('load', planetsReqListener);
-  planetsReq.open('GET', 'http://swapi.co./api/planets/1/');
+  for (var i = 0; i< 10; i++){
+    planetsReq.open('GET', 'http://swapi.co./api/planets/'+ i);
+  }
   planetsReq.send();
 }
 
