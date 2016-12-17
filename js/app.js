@@ -30,6 +30,18 @@ function person14ReqListener(){
   let person14 = JSON.parse(this.responseText);
   let person14Name = person14.name;
   document.getElementById('person14Name').innerHTML = person14Name;
+
+  let speciesReq = new XMLHttpRequest();
+
+  speciesReq.addEventListener('load', speciesReqListener);
+  speciesReq.open('GET', 'http://swapi.co/api/species/1/');
+  speciesReq.send();
+}
+
+function speciesReqListener(){
+  let species = JSON.parse(this.responseText);
+  let person14Species = species.name;
+  document.getElementById('person14Species').innerHTML = person14Species;
 }
 
 var oReq = new XMLHttpRequest();
