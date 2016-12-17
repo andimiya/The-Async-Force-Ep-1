@@ -42,6 +42,41 @@ function speciesReqListener(){
   let species = JSON.parse(this.responseText);
   let person14Species = species.name;
   document.getElementById('person14Species').innerHTML = person14Species;
+
+  let filmsReq = new XMLHttpRequest();
+
+  filmsReq.addEventListener('load', filmsReqListener);
+  filmsReq.open('GET', 'http://swapi.co/api/films');
+  filmsReq.send();
+}
+
+function filmsReqListener(){
+  let films = JSON.parse(this.responseText);
+
+  for (var i = 0; i < films.results.length; i++){
+    let node = document.createElement('LI');
+    let filmResults = document.createTextNode(films.results[i].title)
+    node.appendChild(filmResults);
+    document.getElementById('filmList').appendChild(node);
+
+  }
+
+  let planetsReq = new XMLHttpRequest;
+
+  planetsReq.addEventListener('load', planetsReqListener);
+  planetsReq.open('GET', 'http://swapi.co./api/planets/1/');
+  planetsReq.send();
+}
+
+function planetsReqListener(){
+  let planets = JSON.parse(this.responseText);
+  console.log(planets.name);
+
+  // let node = document.createElement('LI');
+  // let planets = document.createTextNode('planetAlderaan');
+  // node.appendChild(filmResults);
+  // document.getElementById('filmList').appendChild(node);
+
 }
 
 var oReq = new XMLHttpRequest();
