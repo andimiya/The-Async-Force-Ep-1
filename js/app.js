@@ -18,6 +18,18 @@ function homeWorldReqListener(){
   let planets = JSON.parse(this.responseText);
   let person4HomeWorld = planets.name;
   document.getElementById('person4HomeWorld').innerHTML = person4HomeWorld;
+
+  let person14Req = new XMLHttpRequest();
+
+  person14Req.addEventListener('load', person14ReqListener);
+  person14Req.open('GET', 'http://swapi.co/api/people/14/');
+  person14Req.send();
+}
+
+function person14ReqListener(){
+  let person14 = JSON.parse(this.responseText);
+  let person14Name = person14.name;
+  document.getElementById('person14Name').innerHTML = person14Name;
 }
 
 var oReq = new XMLHttpRequest();
