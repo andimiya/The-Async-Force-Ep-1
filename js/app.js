@@ -61,30 +61,26 @@ function filmsReqListener(){
     filmListItem.appendChild(filmTitleHeader);
     filmList.appendChild(filmListItem);
 
+      for(var x = 0; x < films.results.planets.length; x++){
+        function planetsReqListener(){
+          let planets = JSON.parse(this.responseText);
+          let planetListItem = document.createElement('li');
+          let planetName = document.createElement('h4');
+          planetName.innerHTML = planets.name;
+          filmTitleHeader.appendChild(planetName);
+          filmList.appendChild(planetListItem);
+        }
+      }
+
+      let planetsReq = new XMLHttpRequest;
+      planetsReq.addEventListener('load', planetsReqListener);
+      planetsReq.open('GET', planetsReqListener);
+      planetsReq.send();
     //for every film
     //get all planets that were listed in this film
     //  (new XHR request, for each film, and for each planet)
     //  then render each planet in yet another nested <ul> list
   }
-
-  let planetsReq = new XMLHttpRequest;
-
-  planetsReq.addEventListener('load', planetsReqListener);
-  for (var i = 0; i< 10; i++){
-    planetsReq.open('GET', 'http://swapi.co./api/planets/'+ i);
-  }
-  planetsReq.send();
-}
-
-function planetsReqListener(){
-  let planets = JSON.parse(this.responseText);
-  console.log(planets.name);
-
-  // let node = document.createElement('LI');
-  // let planets = document.createTextNode('planetAlderaan');
-  // node.appendChild(filmResults);
-  // document.getElementById('filmList').appendChild(node);
-
 }
 
 var oReq = new XMLHttpRequest();
