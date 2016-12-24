@@ -54,6 +54,8 @@ function filmsReqListener(){
   let films = JSON.parse(this.responseText);
   let filmList = document.getElementById('filmList');
 
+  //In the film API, loop through the results array
+  //Print all the Titles in a bulleted list
   for (var i = 0; i < films.results.length; i++){
     let filmListItem = document.createElement('li');
     let filmTitleHeader = document.createElement('h3');
@@ -61,27 +63,32 @@ function filmsReqListener(){
     filmListItem.appendChild(filmTitleHeader);
     filmList.appendChild(filmListItem);
 
-      for(var x = 0; x < films.results[i].planets.length; x++){
-        function planetsReqListener(){
-          let planets = JSON.parse(this.responseText);
-          let planetListItem = document.createElement('li');
-          let planetName = document.createElement('h4');
-          planetName.innerHTML = planets.name;
-          console.log(planets.name);
-          filmTitleHeader.appendChild(planetName);
-          filmList.appendChild(planetListItem);
-        }
+    let planetsReq = new XMLHttpRequest();
+    planetsReq.open('GET', 'http://swapi.co/api/planets/2/');
+    planetsReq.send();
+
+    //After getting the title of the first film,
+    //Find the planets object within the films API
+
+    //Loop through the planets array
+    //For each [i] in the array, make a call to [i]'s API and parse the JSON
+    //Pull out the planets.name from the Planets API
+
+
+    for(var x = 0; x < films.planets[i].length; x++){
+      function planetsReqListener(){
+        let planets = JSON.parse(this.responseText);
+        let planetListItem = document.createElement('li');
+        let planetName = document.createElement('h4');
+
+        // let planetUrl =
+        planetName.innerHTML = planets.name;
+        console.log(planets.name);
+        filmTitleHeader.appendChild(planetName);
+        filmList.appendChild(planetListItem);
       }
+    }
 
-      let planetsReq = new XMLHttpRequest;
-      planetsReq.addEventListener('load', planetsReqListener);
-      planetsReq.open('GET', 'http://swapi.co/api/planets/1/');
-      planetsReq.send();
-
-    //for every film
-    //get all planets that were listed in this film
-    //  (new XHR request, for each film, and for each planet)
-    //  then render each planet in yet another nested <ul> list
   }
 }
 
