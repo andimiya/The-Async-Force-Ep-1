@@ -56,17 +56,18 @@ function filmsReqListener(){
 
   for (var i = 0; i < films.results.length; i++){
     let filmListItem = document.createElement('li');
-    let filmTitleHeader = document.createElement('h2');
+    let filmTitleHeader = document.createElement('h3');
     filmTitleHeader.innerHTML = films.results[i].title;
     filmListItem.appendChild(filmTitleHeader);
     filmList.appendChild(filmListItem);
 
-      for(var x = 0; x < films.results.planets.length; x++){
+      for(var x = 0; x < films.results[i].planets.length; x++){
         function planetsReqListener(){
           let planets = JSON.parse(this.responseText);
           let planetListItem = document.createElement('li');
           let planetName = document.createElement('h4');
           planetName.innerHTML = planets.name;
+          console.log(planets.name);
           filmTitleHeader.appendChild(planetName);
           filmList.appendChild(planetListItem);
         }
@@ -74,8 +75,9 @@ function filmsReqListener(){
 
       let planetsReq = new XMLHttpRequest;
       planetsReq.addEventListener('load', planetsReqListener);
-      planetsReq.open('GET', planetsReqListener);
+      planetsReq.open('GET', 'http://swapi.co/api/planets/1/');
       planetsReq.send();
+
     //for every film
     //get all planets that were listed in this film
     //  (new XHR request, for each film, and for each planet)
